@@ -1,0 +1,13 @@
+{
+  "discord": {
+    "token": "",
+    "ownerid": ""
+  },
+  "webserver": {
+    "port": 443,
+    "enablecrosssite": true,
+    "enabletls": true,
+    "tlscert": "",
+    "tlskey": ""
+  }
+}

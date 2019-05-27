@@ -1,0 +1,22 @@
+{
+  "name": "guildinfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "npx tsc && node dist/main.js",
+    "build": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dev-dependencies": {
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.2",
+    "discord.js": "^11.5.0",
+    "winston": "^3.2.1"
+  }
+}
