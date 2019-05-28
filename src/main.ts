@@ -3,6 +3,8 @@
 import { ConfigLoader } from './config';
 import { DiscordBuilder } from './discord';
 import { ReadyListener } from './listeners/ready';
+import { WebServerBuilder } from './webserver/webserver';
+import { GuildInfoHandler } from './webserver/handlers/guildinfo';
 import Logger from './logger';
 
 var cfgLoc = process.argv.length > 2 ? process.argv[2] : 'config.json';
@@ -15,13 +17,36 @@ var config = ConfigLoader.openSync(cfgLoc).unwrap(() => {
   process.exit();
 });
 
+Logger.info(`Setting up web server...`);
+var wsBuilder = new WebServerBuilder()
+  .onPort(config.webserver.port)
+  .useCertFrom(config.webserver.tlscert)
+  .useKeyFrom(config.webserver.tlskey)
+  .enableTLS(config.webserver.enabletls);
+
 Logger.info(`Setting up discord session...`);
 new DiscordBuilder()
   .withToken(config.discord.token)
   .withOwner(config.discord.ownerid)
-  .use(new ReadyListener())
+  .use(
+    new ReadyListener(() => {
+      wsBuilder
+        .listenAndServe()
+        .then((server) => {
+          Logger.info(`Web server listening on port ${config.webserver.port}`);
+        })
+        .catch((err) => {
+          Logger.error(`Failed starting web server: ${err}`);
+          process.exit();
+        });
+    })
+  )
   .start()
-  .then((client) => {})
+  .then((client) => {
+    wsBuilder.use(new GuildInfoHandler());
+  })
   .catch((err) => {
+    throw err;
     Logger.error(`Failed logging in to discord: ${err}`);
+    process.exit();
   });

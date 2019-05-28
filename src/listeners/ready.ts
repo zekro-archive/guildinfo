@@ -7,8 +7,11 @@ import Const from '../const';
 
 export class ReadyListener implements IEventListener {
   private client: Client = new Client();
+  private onReady?: () => void;
 
-  constructor() {}
+  constructor(onReady?: () => void) {
+    this.onReady = onReady;
+  }
 
   public get event(): string {
     return 'ready';
@@ -26,5 +29,7 @@ export class ReadyListener implements IEventListener {
         self.id
       }&scope=bot&permissions=${Const.PERMISSIONS}`
     );
+
+    if (this.onReady) this.onReady();
   }
 }
