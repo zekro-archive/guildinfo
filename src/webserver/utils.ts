@@ -12,26 +12,14 @@ const STATUS: { [unit: number]: string } = {
 };
 
 export class Error {
-  private _status: number;
-  private _message: string;
-  private _data?: any;
+  public status: number;
+  public message: string;
+  public data?: any;
 
   constructor(status: number, message?: string, data?: any) {
-    this._status = status;
-    this._message = message ? message : STATUS[status];
-    this._data = data;
-  }
-
-  public get status(): number {
-    return this._status;
-  }
-
-  public get message(): string {
-    return this._message;
-  }
-
-  public get data(): any | undefined {
-    return this._data;
+    this.status = status;
+    this.message = message ? message : STATUS[status];
+    this.data = data;
   }
 
   public send(res: Response): void {
