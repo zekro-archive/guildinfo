@@ -18,7 +18,7 @@ export enum METHOD {
 export interface IRequestHandler {
   readonly route: string;
   readonly method: METHOD;
-  handler(req: Request, res: Response): void;
+  handler(req: Request, res: Response, next: () => void): void;
 }
 
 export class WebServerBuilder {
@@ -76,7 +76,9 @@ export class WebServerBuilder {
         throw Error('unallowed method');
     }
 
-    reqMethod.bind(this.app, handler.route, handler.handler).call();
+    reqMethod
+      .bind(this.app, handler.route, handler.handler.bind(handler))
+      .call();
     return this;
   }
 

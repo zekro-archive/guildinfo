@@ -14,7 +14,9 @@ export class DiscordBuilder {
   private ownerid: string = '';
 
   constructor() {
-    this.client = new Client();
+    this.client = new Client({
+      fetchAllMembers: true,
+    });
   }
 
   public withToken(token: string): DiscordBuilder {

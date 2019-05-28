@@ -5,7 +5,8 @@
   },
   "webserver": {
     "port": 443,
-    "enablecrosssite": true,
+    "enablecors": true,
+    "corsallowedorigins": "https://yourwebsite.com",
     "enabletls": true,
     "tlscert": "",
     "tlskey": ""

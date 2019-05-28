@@ -15,7 +15,8 @@ export class ConfigDiscord {
 
 export class ConfigWebServer {
   public port: number = 443;
-  public enablecrosssite: boolean = true;
+  public enablecors: boolean = true;
+  public corsallowedorigins: string = 'https://yourwebsite.com';
   public enabletls: boolean = true;
   public tlscert: string = '';
   public tlskey: string = '';
