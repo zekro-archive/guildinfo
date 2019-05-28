@@ -15,4 +15,8 @@ var logger = winston.createLogger({
   transports: [new transports.Console()],
 });
 
+export function catcher(err: Error) {
+  logger.error(err);
+}
+
 export default logger;

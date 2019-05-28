@@ -2,7 +2,7 @@
 
 import { Client } from 'discord.js';
 import { IEventListener } from '../discord';
-import Logger from '../logger';
+import Logger, { catcher } from '../logger';
 import Const from '../const';
 
 export class ReadyListener implements IEventListener {
@@ -29,6 +29,8 @@ export class ReadyListener implements IEventListener {
         self.id
       }&scope=bot&permissions=${Const.PERMISSIONS}`
     );
+
+    this.client.user.setStatus('invisible').catch(catcher);
 
     if (this.onReady) this.onReady();
   }
