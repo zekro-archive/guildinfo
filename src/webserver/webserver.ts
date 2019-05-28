@@ -1,7 +1,6 @@
 /** @format */
 
-import { Client } from 'discord.js';
-import express, { Express, Request, Response, IRouterMatcher } from 'express';
+import express, { Express, Request, Response } from 'express';
 import fs from 'fs';
 import https from 'https';
 import http from 'http';
