@@ -5,6 +5,7 @@ import { Client } from 'discord.js';
 export interface IEventListener {
   readonly event: string;
   listener(...args: any): void;
+  setClient(client: Client): void;
 }
 
 export class DiscordBuilder {
@@ -27,12 +28,17 @@ export class DiscordBuilder {
   }
 
   public use(listener: IEventListener): DiscordBuilder {
-    this.client.addListener(listener.event, listener.listener);
+    listener.setClient(this.client);
+    this.client.addListener(listener.event, listener.listener.bind(listener));
     return this;
   }
 
   public useOnce(listener: IEventListener): DiscordBuilder {
-    this.client.prependOnceListener(listener.event, listener.listener);
+    listener.setClient(this.client);
+    this.client.prependOnceListener(
+      listener.event,
+      listener.listener.bind(listener)
+    );
     return this;
   }
 

@@ -35,6 +35,6 @@ export class ConfigLoader {
     }
 
     let data = fs.readFileSync(loc, 'utf8');
-    return JSON.parse(data);
+    return new Optional(JSON.parse(data));
   }
 }
