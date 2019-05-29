@@ -2,14 +2,14 @@
 
 import { IRequestHandler, METHOD } from '../webserver';
 import { Request, Response } from 'express';
-import { Client, User } from 'discord.js';
+import { Client } from 'discord.js';
 import Utils from '../utils';
 
 class GuildInfoResponse {
   public name?: string;
   public id?: string;
   public icon_url?: string;
-  public owner?: User;
+  public owner?: UserData;
   public owner_online?: boolean;
   public members_total?: number;
   public members_online?: number;
@@ -27,6 +27,13 @@ class RoleData {
   public name?: string;
   public color?: number;
   public position?: number;
+}
+
+class UserData {
+  public id?: string;
+  public user_name?: string;
+  public discriminator?: string;
+  public avatar_url?: string;
 }
 
 export class GuildInfoHandler implements IRequestHandler {
@@ -49,7 +56,12 @@ export class GuildInfoHandler implements IRequestHandler {
     ginfo.id = guild.id;
     ginfo.name = guild.name;
     ginfo.icon_url = guild.iconURL;
-    ginfo.owner = guild.owner.user;
+    ginfo.owner = {
+      id: guild.owner.user.id,
+      user_name: guild.owner.user.username,
+      avatar_url: guild.owner.user.avatarURL,
+      discriminator: guild.owner.user.discriminator,
+    };
     ginfo.owner_online = guild.owner.presence.status !== 'offline';
     ginfo.members_total = guild.memberCount;
 
