@@ -10,7 +10,6 @@ export class Config {
 
 export class ConfigDiscord {
   public token: string = '';
-  public ownerid: string = '';
 }
 
 export class ConfigWebServer {

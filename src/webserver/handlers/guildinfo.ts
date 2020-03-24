@@ -38,7 +38,7 @@ class UserData {
 
 export class GuildInfoHandler implements IRequestHandler {
   private client: Client;
-  public readonly route: string = '/api/guildinfo/:id(\\d+)';
+  public readonly route: string = '/guild/:id(\\d+)';
   public readonly method: METHOD = METHOD.GET;
 
   constructor(client: Client) {

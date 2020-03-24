@@ -4,7 +4,7 @@ import { IRequestHandler, METHOD } from '../webserver';
 import { Request, Response } from 'express';
 
 export class HeadersHandler implements IRequestHandler {
-  public readonly route: string = '/api/*';
+  public readonly route: string = '/*';
   public readonly method: METHOD = METHOD.ALL;
 
   constructor() {}

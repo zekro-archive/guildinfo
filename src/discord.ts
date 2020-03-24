@@ -11,7 +11,6 @@ export interface IEventListener {
 export class DiscordBuilder {
   private client: Client;
   private token: string = '';
-  // private ownerid: string = '';
 
   constructor() {
     this.client = new Client({
@@ -21,11 +20,6 @@ export class DiscordBuilder {
 
   public withToken(token: string): DiscordBuilder {
     this.token = token;
-    return this;
-  }
-
-  public withOwner(ownerid: string): DiscordBuilder {
-    // this.ownerid = ownerid;
     return this;
   }
 
