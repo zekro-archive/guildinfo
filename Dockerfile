@@ -10,7 +10,9 @@ COPY package-lock.json .
 COPY tsconfig.json .
 
 RUN npm ci
+RUN npx tsc
+
 RUN mkdir -p /etc/guildinfo
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["node", "dist/main.js"]
 CMD ["/etc/guildinfo/config.json"]
